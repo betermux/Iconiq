@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="mn">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="iconiq - Эмэгтэйчүүдийн street style хувцасны онлайн дэлгүүр. Загварлаг, чанартай хувцас худалдаж аваарай.">
-    <meta name="keywords" content="эмэгтэй хувцас, street style, iconiq, онлайн дэлгүүр">
-    <meta name="author" content="iconiq">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="iconiq - Эмэгтэйчүүдийн street style хувцасны онлайн дэлгүүр. Загварлаг, чанартай хувцас худалдаж аваарай." />
+    <meta name="keywords" content="эмэгтэй хувцас, street style, iconiq, онлайн дэлгүүр" />
+    <meta name="author" content="iconiq" />
     <title>iconiq - Street Style</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet" />
     <style>
         * {
             box-sizing: border-box;
@@ -40,8 +40,14 @@
         }
 
         @keyframes slideIn {
-            from { transform: translateY(-100%); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
         }
 
         .logo {
@@ -60,6 +66,7 @@
             transform: scale(1.1);
         }
 
+        /* Навигацийн цэс */
         .nav {
             display: flex;
             align-items: center;
@@ -77,14 +84,16 @@
             color: #ff4d4d;
         }
 
+        /* Хайлтын хэсэг */
         .search-bar {
-            margin-left: 20px;
+            margin-left: 10px;
             display: flex;
             align-items: center;
             background: #222;
             border-radius: 25px;
             padding: 5px 10px;
             transition: background 0.3s ease;
+            width: 180px;
         }
 
         .search-bar input {
@@ -95,7 +104,7 @@
             font-family: 'Poppins', sans-serif;
             font-size: 0.9em;
             padding: 5px;
-            width: 150px; /* Slightly wider for usability */
+            width: 100%;
         }
 
         .search-bar input::placeholder {
@@ -103,10 +112,13 @@
             opacity: 1;
         }
 
-        .search-bar i {
+        .search-bar button {
+            background: none;
+            border: none;
             color: #fff;
             font-size: 1em;
             cursor: pointer;
+            padding: 0 5px;
             transition: color 0.3s ease;
         }
 
@@ -114,28 +126,90 @@
             background: #333;
         }
 
-        .search-bar i:hover {
+        .search-bar button:hover {
             color: #ff4d4d;
         }
 
+        /* Гар утасны цэсний товч */
+        .menu-toggle {
+            font-size: 1.8em;
+            cursor: pointer;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+        }
+
+        /* Гар утасны хувилбар */
+        @media (max-width: 600px) {
+            .logo h1 {
+                font-size: 1.5em;
+            }
+
+            .nav {
+                position: fixed;
+                top: 60px;
+                right: 0;
+                background: #000;
+                height: calc(100vh - 60px);
+                width: 200px;
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 20px;
+                transform: translateX(100%);
+                transition: transform 0.3s ease;
+                box-shadow: -2px 0 10px rgba(0, 0, 0, 0.7);
+                overflow-y: auto;
+                z-index: 1001;
+            }
+
+            .nav.open {
+                transform: translateX(0);
+            }
+
+            .nav a {
+                margin: 15px 0;
+                font-size: 1.2em;
+                margin-left: 0;
+                width: 100%;
+            }
+
+            .search-bar {
+                margin-left: 0;
+                width: 100%;
+                margin-top: 15px;
+            }
+
+            .search-bar input {
+                width: 100%;
+            }
+        }
+
+        /* Барааны carousel */
         .content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            padding: 40px;
             max-width: 1300px;
-            margin: 0 auto;
+            margin: 40px auto;
+            overflow-x: auto;
+            white-space: nowrap;
+            padding-bottom: 10px;
+            -webkit-overflow-scrolling: touch;
         }
 
         .product {
+            display: inline-block;
             background: #222;
             border-radius: 15px;
-            padding: 20px;
+            padding: 15px;
             text-align: center;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             position: relative;
             overflow: hidden;
+            width: 220px;
+            margin-right: 20px;
+            vertical-align: top;
         }
 
         .product:hover {
@@ -156,16 +230,15 @@
         }
 
         .product h3 {
-            margin: 15px 0;
+            margin: 15px 0 10px;
             color: #ff4d4d;
-            font-size: 1.5em;
+            font-size: 1.3em;
             font-weight: 700;
         }
 
         .product .price {
-            font-size: 1.1em;
+            font-size: 1em;
             color: #ccc;
-            margin-bottom: 15px;
             font-weight: 600;
         }
 
@@ -194,24 +267,6 @@
             color: #ff4d4d;
             transform: scale(1.2);
         }
-
-        @media (max-width: 600px) {
-            .logo h1 {
-                font-size: 1.5em;
-            }
-
-            .content {
-                padding: 20px;
-            }
-
-            .product {
-                padding: 15px;
-            }
-
-            .nav {
-                display: none; /* Hide navigation and search bar on mobile */
-            }
-        }
     </style>
 </head>
 <body>
@@ -219,26 +274,31 @@
         <div class="logo">
             <h1>ICONIQ</h1>
         </div>
-        <div class="nav">
+        <div style="display: flex; align-items: center;">
+            <form class="search-bar" action="/search" method="GET" onsubmit="return handleSearch(event)">
+                <input type="text" name="q" placeholder="Бүтээгдэхүүн хайх..." aria-label="Бүтээгдэхүүн хайх" />
+                <button type="submit" aria-label="Хайх"><i class="fas fa-search"></i></button>
+            </form>
+            <div class="menu-toggle" id="menu-toggle" aria-label="Цэс нээх/хаах" role="button" tabindex="0" style="margin-left: 15px;">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+        <nav class="nav" id="nav">
             <a href="#home">Нүүр</a>
             <a href="#shop">Дэлгүүр</a>
             <a href="#about">Бидний тухай</a>
             <a href="#contact">Холбоо барих</a>
-            <form class="search-bar" action="/search" method="GET">
-                <input type="text" placeholder="Бүтээгдэхүүн хайх..." aria-label="Бүтээгдэхүүн хайх">
-                <i class="fas fa-search"></i>
-            </form>
-        </div>
+        </nav>
     </header>
 
-    <main class="content">
+    <main class="content" tabindex="0" aria-label="Барааны carousel">
         <div class="product">
-            <img src="assets/baraa1.png" alt="Эмэгтэй даашинз" loading="lazy">
+            <img src="assets/baraa1.png" alt="Эмэгтэй даашинз" loading="lazy" />
             <h3>Даашинз</h3>
             <p class="price">120,000 ₮</p>
         </div>
         <div class="product">
-            <img src="assets/baraa2.png" alt="Эмэгтэй хүрэм" loading="lazy">
+            <img src="assets/baraa2.png" alt="Эмэгтэй хүрэм" loading="lazy" />
             <h3>Хүрэм</h3>
             <p class="price">180,000 ₮</p>
         </div>
@@ -247,9 +307,36 @@
     <footer class="footer">
         <p>&copy; 2025 iconiq. Бүх эрх хамгаалагдсан.</p>
         <div class="social-links">
-            <a href="https://www.instagram.com/iconiq.onlineshopp?igsh=MWRnNTA4aDRidmw4Mw==" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
-            <a href="https://www.tiktok.com/@iconiq" target="_blank"><i class="fab fa-tiktok"></i> TikTok</a>
+            <a href="https://www.instagram.com/iconiq.onlineshopp?igsh=MWRnNTA4aDRidmw4Mw==" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i> Instagram</a>
+            <a href="https://www.tiktok.com/@iconiq" target="_blank" rel="noopener noreferrer"><i class="fab fa-tiktok"></i> TikTok</a>
         </div>
     </footer>
+
+    <script>
+        const menuToggle = document.getElementById('menu-toggle');
+        const nav = document.getElementById('nav');
+
+        menuToggle.addEventListener('click', () => {
+            nav.classList.toggle('open');
+        });
+
+        menuToggle.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                nav.classList.toggle('open');
+            }
+        });
+
+        function handleSearch(event) {
+            event.preventDefault();
+            const query = event.target.q.value.trim();
+            if (!query) {
+                alert('Хайлтын үгээ оруулна уу.');
+                return false;
+            }
+            window.location.href = `/search?q=${encodeURIComponent(query)}`;
+            return false;
+        }
+    </script>
 </body>
 </html>
