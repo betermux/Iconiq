@@ -262,7 +262,6 @@
             font-weight: 600;
         }
 
-        /* Шинэ нэмэлт: Өнгө, Хэмжээ */
         .product .color,
         .product .size {
             font-size: 0.9em;
@@ -319,20 +318,26 @@
     </header>
 
     <main class="content" tabindex="0" aria-label="Барааны carousel">
-        <div class="product" data-images="assets/baraa1.png,assets/baraa1x1.png,assets/baraa1x2.png" data-color="Dark Blue" data-size="M, L, XL">
+        <div class="product">
             <img src="assets/baraa1.png" alt="Baggy Jeans" loading="lazy" />
             <h3>Baggy Jeans</h3>
             <p class="price">120,000 ₮</p>
+            <p class="color">Өнгө: Dark Blue</p>
+            <p class="size">Хэмжээ: M, L, XL</p>
         </div>
-        <div class="product" data-images="assets/baraa2.png,assets/baraa2x1.png,assets/baraa2x2.png" data-color="Black" data-size="S, M, L">
+        <div class="product">
             <img src="assets/baraa2.png" alt="Street Hoodie" loading="lazy" />
             <h3>Street Hoodie</h3>
             <p class="price">180,000 ₮</p>
+            <p class="color">Өнгө: Black</p>
+            <p class="size">S, M, L</p>
         </div>
-        <div class="product" data-images="assets/baraa3.png,assets/baraa3x1.png,assets/baraa3x2.png" data-color="White" data-size="M, L">
+        <div class="product">
             <img src="assets/baraa3.png" alt="Casual Shirt" loading="lazy" />
             <h3>Casual Shirt</h3>
             <p class="price">95,000 ₮</p>
+            <p class="color">Өнгө: White</p>
+            <p class="size">M, L</p>
         </div>
     </main>
 
@@ -384,94 +389,7 @@
             });
         });
 
-        // Swipe эффекттэй зураг слайд хийх
-        products.forEach(product => {
-            const img = product.querySelector('img');
-            const images = product.dataset.images ? product.dataset.images.split(',') : [];
-            if (images.length <= 1) return;
-
-            let currentIndex = 0;
-            let startX = 0;
-            let isDragging = false;
-
-            function updateImage(index) {
-                currentIndex = (index + images.length) % images.length;
-                img.src = images[currentIndex];
-            }
-
-            img.addEventListener('touchstart', (e) => {
-                startX = e.touches[0].clientX;
-                isDragging = true;
-            });
-
-            img.addEventListener('touchmove', (e) => {
-                if (!isDragging) return;
-                const currentX = e.touches[0].clientX;
-                const diffX = currentX - startX;
-
-                if (Math.abs(diffX) > 50) {
-                    if (diffX > 0) {
-                        updateImage(currentIndex - 1);
-                    } else {
-                        updateImage(currentIndex + 1);
-                    }
-                    isDragging = false;
-                }
-            });
-
-            img.addEventListener('touchend', () => {
-                isDragging = false;
-            });
-
-            img.addEventListener('mousedown', (e) => {
-                startX = e.clientX;
-                isDragging = true;
-                e.preventDefault();
-            });
-
-            img.addEventListener('mousemove', (e) => {
-                if (!isDragging) return;
-                const currentX = e.clientX;
-                const diffX = currentX - startX;
-
-                if (Math.abs(diffX) > 50) {
-                    if (diffX > 0) {
-                        updateImage(currentIndex - 1);
-                    } else {
-                        updateImage(currentIndex + 1);
-                    }
-                    isDragging = false;
-                }
-            });
-
-            img.addEventListener('mouseup', () => {
-                isDragging = false;
-            });
-
-            img.addEventListener('mouseleave', () => {
-                isDragging = false;
-            });
-        });
-
-        // data-color, data-size-аас өнгө, хэмжээ текст үүсгэх
-        products.forEach(product => {
-            const color = product.dataset.color;
-            const size = product.dataset.size;
-
-            if (color) {
-                const colorElem = document.createElement('p');
-                colorElem.className = 'color';
-                colorElem.textContent = `Өнгө: ${color}`;
-                product.appendChild(colorElem);
-            }
-
-            if (size) {
-                const sizeElem = document.createElement('p');
-                sizeElem.className = 'size';
-                sizeElem.textContent = `Хэмжээ: ${size}`;
-                product.appendChild(sizeElem);
-            }
-        });
+        // Swipe болон олон зурагтай холбоотой код устсан тул энд нэмэлт скрипт байхгүй
     </script>
 </body>
 </html>
