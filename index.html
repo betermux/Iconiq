@@ -2,7 +2,7 @@
 <html lang="mn">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>iconiq - Street Style</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet" />
@@ -239,7 +239,9 @@
             max-width: 100%;
             height: auto;
             border-radius: 10px;
-            transition: transform 0.3s ease, filter 0.3s ease;
+            transition: transform 0.3s ease, filter 0.3s ease, opacity 0.5s ease;
+            opacity: 1;
+            position: relative;
         }
 
         .product img:hover {
@@ -318,7 +320,7 @@
             <h3>Street Hoodie</h3>
             <p class="price">180,000 ₮</p>
         </div>
-        <div class="product" data-images="assets/baraa3.png,assets/baraa3x1.png,assets/baraa3x2.png">
+        <div class="product" data-images="assets/baraa3.png">
             <img src="assets/baraa3.png" alt="Casual Shirt" loading="lazy" />
             <h3>Casual Shirt</h3>
             <p class="price">95,000 ₮</p>
@@ -373,11 +375,11 @@
             });
         });
 
-        // Зураг слайд эффект
+        // Зураг слайд эффект анимэйшнтай
         products.forEach(product => {
             const img = product.querySelector('img');
             const images = product.dataset.images ? product.dataset.images.split(',') : [];
-            if (images.length <= 1) return; // Зөвхөн нэг зураг байвал слайд хийхгүй
+            if (images.length <= 1) return; // Нэмэлт зураг байхгүй бол слайд хийхгүй
 
             let currentIndex = 0;
             let intervalId;
@@ -386,13 +388,25 @@
                 currentIndex = 0;
                 intervalId = setInterval(() => {
                     currentIndex = (currentIndex + 1) % images.length;
-                    img.src = images[currentIndex];
-                }, 1000); // 1 секунд тутам зураг солигдоно
+
+                    // Fade out
+                    img.style.opacity = 0;
+                    setTimeout(() => {
+                        img.src = images[currentIndex];
+                        // Fade in
+                        img.style.opacity = 1;
+                    }, 500); // 0.5 секундийн анимэйшнтай тохирсон хугацаа
+                }, 1500); // 1.5 секунд тутам зураг солигдоно
             });
 
             product.addEventListener('mouseleave', () => {
                 clearInterval(intervalId);
-                img.src = images[0]; // Үндсэн зураг руу буцна
+                // Үндсэн зураг руу буцахдаа мөн fade эффекттэй
+                img.style.opacity = 0;
+                setTimeout(() => {
+                    img.src = images[0];
+                    img.style.opacity = 1;
+                }, 500);
             });
         });
     </script>
