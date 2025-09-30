@@ -31,7 +31,7 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
             display: flex;
             justify-content: space-between;
-            align-items: flex-start; /* Дээш байрлуулах */
+            align-items: center;
             animation: slideIn 0.6s ease-out;
             height: 60px;
         }
@@ -49,8 +49,8 @@
 
         .logo {
             text-align: left;
-            margin-top: 4px; /* Бага зэрэг дээш */
-            margin-left: 5px; /* Зүүн тийш бага зэрэг */
+            margin-left: 5px;
+            margin-top: 0;
         }
 
         .logo h1 {
@@ -84,10 +84,11 @@
 
         .search-menu-container {
             display: flex;
-            align-items: flex-start; /* Дээш байрлуулах */
+            align-items: center;
             margin-left: auto;
             gap: 15px;
-            margin-top: 4px; /* Бага зэрэг дээш */
+            position: relative;
+            top: 4px;
         }
 
         .search-bar {
@@ -144,10 +145,10 @@
             justify-content: center;
             width: 40px;
             height: 40px;
-            margin-top: 4px; /* Бага зэрэг дээш */
+            position: relative;
+            top: 4px;
         }
 
-        /* Гар утасны хувилбар */
         @media (max-width: 600px) {
             .logo h1 {
                 font-size: 1.5em;
@@ -187,6 +188,8 @@
                 margin-top: 15px;
                 justify-content: flex-start;
                 align-items: center;
+                top: 0;
+                position: static;
             }
 
             .search-bar {
@@ -195,6 +198,11 @@
 
             .search-bar input {
                 width: 100%;
+            }
+
+            .menu-toggle {
+                top: 0;
+                position: static;
             }
         }
 
@@ -309,6 +317,11 @@
             <img src="assets/baraa2.png" alt="Street Hoodie" loading="lazy" />
             <h3>Street Hoodie</h3>
             <p class="price">180,000 ₮</p>
+        </div>
+        <div class="product">
+            <img src="assets/baraa3.png" alt="Casual Shirt" loading="lazy" />
+            <h3>Casual Shirt</h3>
+            <p class="price">95,000 ₮</p>
         </div>
     </main>
 
