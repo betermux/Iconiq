@@ -86,14 +86,14 @@
 
         /* Хайлтын хэсэг */
         .search-bar {
-            margin-left: 10px;
             display: flex;
             align-items: center;
             background: #222;
             border-radius: 25px;
-            padding: 5px 10px;
+            padding: 4px 10px;
             transition: background 0.3s ease;
-            width: 180px;
+            width: 160px;
+            font-size: 0.9em;
         }
 
         .search-bar input {
@@ -103,7 +103,7 @@
             color: #fff;
             font-family: 'Poppins', sans-serif;
             font-size: 0.9em;
-            padding: 5px;
+            padding: 5px 8px;
             width: 100%;
         }
 
@@ -140,6 +140,7 @@
             justify-content: center;
             width: 40px;
             height: 40px;
+            margin-left: 15px;
         }
 
         /* Гар утасны хувилбар */
@@ -177,7 +178,6 @@
             }
 
             .search-bar {
-                margin-left: 0;
                 width: 100%;
                 margin-top: 15px;
             }
@@ -275,11 +275,11 @@
             <h1>ICONIQ</h1>
         </div>
         <div style="display: flex; align-items: center;">
-            <form class="search-bar" action="/search" method="GET" onsubmit="return handleSearch(event)">
-                <input type="text" name="q" placeholder="Бүтээгдэхүүн хайх..." aria-label="Бүтээгдэхүүн хайх" />
+            <form class="search-bar" id="search-form" action="/search" method="GET" onsubmit="return handleSearch(event)">
+                <input type="text" id="search-input" name="q" placeholder="Бүтээгдэхүүн хайх..." aria-label="Бүтээгдэхүүн хайх" autocomplete="off" />
                 <button type="submit" aria-label="Хайх"><i class="fas fa-search"></i></button>
             </form>
-            <div class="menu-toggle" id="menu-toggle" aria-label="Цэс нээх/хаах" role="button" tabindex="0" style="margin-left: 15px;">
+            <div class="menu-toggle" id="menu-toggle" aria-label="Цэс нээх/хаах" role="button" tabindex="0">
                 <i class="fas fa-bars"></i>
             </div>
         </div>
@@ -315,6 +315,8 @@
     <script>
         const menuToggle = document.getElementById('menu-toggle');
         const nav = document.getElementById('nav');
+        const searchInput = document.getElementById('search-input');
+        const products = document.querySelectorAll('.product');
 
         menuToggle.addEventListener('click', () => {
             nav.classList.toggle('open');
@@ -329,14 +331,28 @@
 
         function handleSearch(event) {
             event.preventDefault();
-            const query = event.target.q.value.trim();
+            const query = searchInput.value.trim();
             if (!query) {
                 alert('Хайлтын үгээ оруулна уу.');
                 return false;
             }
+            // Хайлтын үр дүнгийн хуудсанд шилжих (хэрэв хүсвэл)
             window.location.href = `/search?q=${encodeURIComponent(query)}`;
             return false;
         }
+
+        // Үсэг бүр оруулахад барааг шүүх функц
+        searchInput.addEventListener('input', () => {
+            const filter = searchInput.value.toLowerCase();
+            products.forEach(product => {
+                const title = product.querySelector('h3').textContent.toLowerCase();
+                if (title.includes(filter)) {
+                    product.style.display = 'inline-block';
+                } else {
+                    product.style.display = 'none';
+                }
+            });
+        });
     </script>
 </body>
 </html>
