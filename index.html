@@ -85,6 +85,13 @@
         }
 
         /* Хайлтын хэсэг */
+        .search-menu-container {
+            display: flex;
+            align-items: center;
+            margin-left: auto; /* Баруун зүгт шахах */
+            gap: 15px;
+        }
+
         .search-bar {
             display: flex;
             align-items: center;
@@ -140,7 +147,6 @@
             justify-content: center;
             width: 40px;
             height: 40px;
-            margin-left: 15px;
         }
 
         /* Гар утасны хувилбар */
@@ -177,9 +183,15 @@
                 width: 100%;
             }
 
-            .search-bar {
+            .search-menu-container {
+                margin-left: 0;
                 width: 100%;
                 margin-top: 15px;
+                justify-content: flex-start;
+            }
+
+            .search-bar {
+                width: 100%;
             }
 
             .search-bar input {
@@ -231,7 +243,7 @@
 
         .product h3 {
             margin: 15px 0 10px;
-            color: #ff4d4d;
+            color: #fff; /* Цагаан өнгө */
             font-size: 1.3em;
             font-weight: 700;
         }
@@ -274,7 +286,7 @@
         <div class="logo">
             <h1>ICONIQ</h1>
         </div>
-        <div style="display: flex; align-items: center;">
+        <div class="search-menu-container">
             <form class="search-bar" id="search-form" action="/search" method="GET" onsubmit="return handleSearch(event)">
                 <input type="text" id="search-input" name="q" placeholder="Бүтээгдэхүүн хайх..." aria-label="Бүтээгдэхүүн хайх" autocomplete="off" />
                 <button type="submit" aria-label="Хайх"><i class="fas fa-search"></i></button>
@@ -285,21 +297,19 @@
         </div>
         <nav class="nav" id="nav">
             <a href="#home">Нүүр</a>
-            <a href="#shop">Дэлгүүр</a>
-            <a href="#about">Бидний тухай</a>
             <a href="#contact">Холбоо барих</a>
         </nav>
     </header>
 
     <main class="content" tabindex="0" aria-label="Барааны carousel">
         <div class="product">
-            <img src="assets/baraa1.png" alt="Эмэгтэй даашинз" loading="lazy" />
-            <h3>Даашинз</h3>
+            <img src="assets/baraa1.png" alt="Baggy Jeans" loading="lazy" />
+            <h3>Baggy Jeans</h3>
             <p class="price">120,000 ₮</p>
         </div>
         <div class="product">
-            <img src="assets/baraa2.png" alt="Эмэгтэй хүрэм" loading="lazy" />
-            <h3>Хүрэм</h3>
+            <img src="assets/baraa2.png" alt="Street Hoodie" loading="lazy" />
+            <h3>Street Hoodie</h3>
             <p class="price">180,000 ₮</p>
         </div>
     </main>
@@ -336,12 +346,10 @@
                 alert('Хайлтын үгээ оруулна уу.');
                 return false;
             }
-            // Хайлтын үр дүнгийн хуудсанд шилжих (хэрэв хүсвэл)
             window.location.href = `/search?q=${encodeURIComponent(query)}`;
             return false;
         }
 
-        // Үсэг бүр оруулахад барааг шүүх функц
         searchInput.addEventListener('input', () => {
             const filter = searchInput.value.toLowerCase();
             products.forEach(product => {
