@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="iconiq - Эмэгтэйчүүдийн street style хувцасны онлайн дэлгүүр. Загварлаг, зоримог, чанартай хувцаснуудыг онлайнаар худалдаж аваарай.">
-    <meta name="keywords" content="эмэгтэй хувцас, street style, загварлаг хувцас, iconiq, Монголын онлайн дэлгүүр">
+    <meta name="description" content="iconiq - Эмэгтэйчүүдийн street style хувцасны онлайн дэлгүүр. Загварлаг, чанартай хувцас худалдаж аваарай.">
+    <meta name="keywords" content="эмэгтэй хувцас, street style, iconiq, онлайн дэлгүүр">
     <meta name="author" content="iconiq">
-    <title>iconiq - Street Style Хувцас</title>
+    <title>iconiq - Street Style</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
     <style>
         * {
             box-sizing: border-box;
@@ -18,7 +18,7 @@
 
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #1a1a1a 0%, #333 100%); /* Хар, загварлаг фон */
+            background: linear-gradient(135deg, #1a1a1a 0%, #333 100%);
             color: #fff;
             line-height: 1.6;
             overflow-x: hidden;
@@ -28,14 +28,15 @@
             position: sticky;
             top: 0;
             z-index: 1000;
-            background: #000; /* Street style-д тохирсон хар өнгө */
+            background: #000;
             color: #fff;
-            padding: 15px 30px;
+            padding: 10px 20px; /* Smaller padding */
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
             display: flex;
             justify-content: space-between;
             align-items: center;
             animation: slideIn 0.6s ease-out;
+            height: 60px; /* Smaller height */
         }
 
         @keyframes slideIn {
@@ -43,14 +44,20 @@
             to { transform: translateY(0); opacity: 1; }
         }
 
-        .logo img {
-            width: 120px;
-            height: auto;
+        .logo {
+            text-align: center;
+        }
+
+        .logo h1 {
+            font-family: 'Playfair Display', serif; /* Fallback to Playfair Display */
+            font-size: 2em;
+            color: #fff;
+            margin: 0;
             transition: transform 0.3s ease;
         }
 
-        .logo img:hover {
-            transform: scale(1.1); /* Лого дээр hover хийхэд бага зэрэг томрох */
+        .logo h1:hover {
+            transform: scale(1.1);
         }
 
         .nav a {
@@ -62,7 +69,7 @@
         }
 
         .nav a:hover {
-            color: #ff4d4d; /* Неоны улаан өнгө */
+            color: #ff4d4d;
         }
 
         .content {
@@ -75,7 +82,7 @@
         }
 
         .product {
-            background: #222; /* Харанхуй картны фон */
+            background: #222;
             border-radius: 15px;
             padding: 20px;
             text-align: center;
@@ -86,7 +93,7 @@
         }
 
         .product:hover {
-            transform: translateY(-10px); /* Hover дээр дээшээ хөдлөх */
+            transform: translateY(-10px);
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6);
         }
 
@@ -98,37 +105,22 @@
         }
 
         .product img:hover {
-            transform: scale(1.05); /* Зураг томрох */
-            filter: brightness(1.2); /* Зургийн гэрэлтэлт нэмэгдэх */
+            transform: scale(1.05);
+            filter: brightness(1.2);
         }
 
         .product h3 {
             margin: 15px 0;
-            color: #ff4d4d; /* Неоны улаан загварын нэр */
+            color: #ff4d4d;
             font-size: 1.5em;
             font-weight: 700;
         }
 
-        .product p {
-            font-size: 0.9em;
+        .product .price {
+            font-size: 1.1em;
             color: #ccc;
             margin-bottom: 15px;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 12px 25px;
-            background: #ff4d4d;
-            color: #fff;
-            text-decoration: none;
-            border-radius: 25px; /* Илүү зөөлөн булан */
             font-weight: 600;
-            transition: background 0.3s ease, transform 0.3s ease;
-        }
-
-        .btn:hover {
-            background: #ff6666;
-            transform: scale(1.05);
         }
 
         .footer {
@@ -158,8 +150,8 @@
         }
 
         @media (max-width: 600px) {
-            .logo img {
-                width: 100px;
+            .logo h1 {
+                font-size: 1.5em; /* Smaller font for mobile */
             }
 
             .content {
@@ -171,7 +163,7 @@
             }
 
             .nav {
-                display: none; /* Мобайл дээр navigation-г нуух */
+                display: none; /* Hide navigation on mobile */
             }
         }
     </style>
@@ -179,7 +171,7 @@
 <body>
     <header class="header">
         <div class="logo">
-            <img src="assets/iconiq.png" alt="iconiq лого" loading="lazy">
+            <h1>ICONIQ</h1>
         </div>
         <div class="nav">
             <a href="#home">Нүүр</a>
@@ -191,21 +183,19 @@
 
     <main class="content">
         <div class="product">
-            <img src="assets/baraa1.png" alt="Street style эмэгтэй даашинз" loading="lazy">
-            <h3>Зоримог Даашинз</h3>
-            <p>Street style-д тохирсон, тав тухтай, загварлаг даашинз.</p>
-            <a href="#details" class="btn">Дэлгэрэнгүй</a>
+            <img src="assets/baraa1.png" alt="Эмэгтэй даашинз" loading="lazy">
+            <h3>Даашинз</h3>
+            <p class="price">120,000 ₮</p>
         </div>
         <div class="product">
-            <img src="assets/baraa2.png" alt="Street style хүрэм" loading="lazy">
-            <h3>Неон Хүрэм</h3>
-            <p>Өвлийн street style-д зориулсан дулаан, тод загвар.</p>
-            <a href="#details" class="btn">Дэлгэрэнгүй</a>
+            <img src="assets/baraa2.png" alt="Эмэгтэй хүрэм" loading="lazy">
+            <h3>Хүрэм</h3>
+            <p class="price">180,000 ₮</p>
         </div>
     </main>
 
     <footer class="footer">
-        <p>&copy; 2025 iconiq. Бүх эрх хуулиар хамгаалагдсан.</p>
+        <p>&copy; 2025 iconiq. Бүх эрх хамгаалагдсан.</p>
         <div class="social-links">
             <a href="https://www.instagram.com/iconiq.onlineshopp?igsh=MWRnNTA4aDRidmw4Mw==" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
             <a href="https://www.tiktok.com/@iconiq" target="_blank"><i class="fab fa-tiktok"></i> TikTok</a>
