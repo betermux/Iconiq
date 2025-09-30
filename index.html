@@ -30,13 +30,13 @@
             z-index: 1000;
             background: #000;
             color: #fff;
-            padding: 10px 20px; /* Smaller padding */
+            padding: 10px 20px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
             display: flex;
             justify-content: space-between;
             align-items: center;
             animation: slideIn 0.6s ease-out;
-            height: 60px; /* Smaller height */
+            height: 60px;
         }
 
         @keyframes slideIn {
@@ -49,7 +49,7 @@
         }
 
         .logo h1 {
-            font-family: 'Playfair Display', serif; /* Fallback to Playfair Display */
+            font-family: 'Playfair Display', serif;
             font-size: 2em;
             color: #fff;
             margin: 0;
@@ -58,6 +58,11 @@
 
         .logo h1:hover {
             transform: scale(1.1);
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
         }
 
         .nav a {
@@ -69,6 +74,47 @@
         }
 
         .nav a:hover {
+            color: #ff4d4d;
+        }
+
+        .search-bar {
+            margin-left: 20px;
+            display: flex;
+            align-items: center;
+            background: #222;
+            border-radius: 25px;
+            padding: 5px 10px;
+            transition: background 0.3s ease;
+        }
+
+        .search-bar input {
+            background: none;
+            border: none;
+            outline: none;
+            color: #fff;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9em;
+            padding: 5px;
+            width: 150px; /* Slightly wider for usability */
+        }
+
+        .search-bar input::placeholder {
+            color: #ccc;
+            opacity: 1;
+        }
+
+        .search-bar i {
+            color: #fff;
+            font-size: 1em;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .search-bar:hover {
+            background: #333;
+        }
+
+        .search-bar i:hover {
             color: #ff4d4d;
         }
 
@@ -151,7 +197,7 @@
 
         @media (max-width: 600px) {
             .logo h1 {
-                font-size: 1.5em; /* Smaller font for mobile */
+                font-size: 1.5em;
             }
 
             .content {
@@ -163,7 +209,7 @@
             }
 
             .nav {
-                display: none; /* Hide navigation on mobile */
+                display: none; /* Hide navigation and search bar on mobile */
             }
         }
     </style>
@@ -178,6 +224,10 @@
             <a href="#shop">Дэлгүүр</a>
             <a href="#about">Бидний тухай</a>
             <a href="#contact">Холбоо барих</a>
+            <form class="search-bar" action="/search" method="GET">
+                <input type="text" placeholder="Бүтээгдэхүүн хайх..." aria-label="Бүтээгдэхүүн хайх">
+                <i class="fas fa-search"></i>
+            </form>
         </div>
     </header>
 
