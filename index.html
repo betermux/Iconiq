@@ -2,7 +2,7 @@
 <html lang="mn">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>iconiq - Street Style</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet" />
@@ -239,9 +239,9 @@
             max-width: 100%;
             height: auto;
             border-radius: 10px;
-            transition: transform 0.3s ease, filter 0.3s ease, opacity 0.5s ease;
-            opacity: 1;
-            position: relative;
+            transition: transform 0.3s ease, filter 0.3s ease;
+            user-select: none;
+            -webkit-user-drag: none;
         }
 
         .product img:hover {
@@ -260,6 +260,15 @@
             font-size: 1em;
             color: #ccc;
             font-weight: 600;
+        }
+
+        /* Шинэ нэмэлт: Өнгө, Хэмжээ */
+        .product .color,
+        .product .size {
+            font-size: 0.9em;
+            color: #aaa;
+            margin: 5px 0 0;
+            font-weight: 500;
         }
 
         .footer {
@@ -310,17 +319,17 @@
     </header>
 
     <main class="content" tabindex="0" aria-label="Барааны carousel">
-        <div class="product" data-images="assets/baraa1.png,assets/baraa1x1.png,assets/baraa1x2.png">
+        <div class="product" data-images="assets/baraa1.png,assets/baraa1x1.png,assets/baraa1x2.png" data-color="Dark Blue" data-size="M, L, XL">
             <img src="assets/baraa1.png" alt="Baggy Jeans" loading="lazy" />
             <h3>Baggy Jeans</h3>
             <p class="price">120,000 ₮</p>
         </div>
-        <div class="product" data-images="assets/baraa2.png,assets/baraa2x1.png,assets/baraa2x2.png">
+        <div class="product" data-images="assets/baraa2.png,assets/baraa2x1.png,assets/baraa2x2.png" data-color="Black" data-size="S, M, L">
             <img src="assets/baraa2.png" alt="Street Hoodie" loading="lazy" />
             <h3>Street Hoodie</h3>
             <p class="price">180,000 ₮</p>
         </div>
-        <div class="product" data-images="assets/baraa3.png">
+        <div class="product" data-images="assets/baraa3.png,assets/baraa3x1.png,assets/baraa3x2.png" data-color="White" data-size="M, L">
             <img src="assets/baraa3.png" alt="Casual Shirt" loading="lazy" />
             <h3>Casual Shirt</h3>
             <p class="price">95,000 ₮</p>
@@ -375,39 +384,93 @@
             });
         });
 
-        // Зураг слайд эффект анимэйшнтай
+        // Swipe эффекттэй зураг слайд хийх
         products.forEach(product => {
             const img = product.querySelector('img');
             const images = product.dataset.images ? product.dataset.images.split(',') : [];
-            if (images.length <= 1) return; // Нэмэлт зураг байхгүй бол слайд хийхгүй
+            if (images.length <= 1) return;
 
             let currentIndex = 0;
-            let intervalId;
+            let startX = 0;
+            let isDragging = false;
 
-            product.addEventListener('mouseenter', () => {
-                currentIndex = 0;
-                intervalId = setInterval(() => {
-                    currentIndex = (currentIndex + 1) % images.length;
+            function updateImage(index) {
+                currentIndex = (index + images.length) % images.length;
+                img.src = images[currentIndex];
+            }
 
-                    // Fade out
-                    img.style.opacity = 0;
-                    setTimeout(() => {
-                        img.src = images[currentIndex];
-                        // Fade in
-                        img.style.opacity = 1;
-                    }, 500); // 0.5 секундийн анимэйшнтай тохирсон хугацаа
-                }, 1500); // 1.5 секунд тутам зураг солигдоно
+            img.addEventListener('touchstart', (e) => {
+                startX = e.touches[0].clientX;
+                isDragging = true;
             });
 
-            product.addEventListener('mouseleave', () => {
-                clearInterval(intervalId);
-                // Үндсэн зураг руу буцахдаа мөн fade эффекттэй
-                img.style.opacity = 0;
-                setTimeout(() => {
-                    img.src = images[0];
-                    img.style.opacity = 1;
-                }, 500);
+            img.addEventListener('touchmove', (e) => {
+                if (!isDragging) return;
+                const currentX = e.touches[0].clientX;
+                const diffX = currentX - startX;
+
+                if (Math.abs(diffX) > 50) {
+                    if (diffX > 0) {
+                        updateImage(currentIndex - 1);
+                    } else {
+                        updateImage(currentIndex + 1);
+                    }
+                    isDragging = false;
+                }
             });
+
+            img.addEventListener('touchend', () => {
+                isDragging = false;
+            });
+
+            img.addEventListener('mousedown', (e) => {
+                startX = e.clientX;
+                isDragging = true;
+                e.preventDefault();
+            });
+
+            img.addEventListener('mousemove', (e) => {
+                if (!isDragging) return;
+                const currentX = e.clientX;
+                const diffX = currentX - startX;
+
+                if (Math.abs(diffX) > 50) {
+                    if (diffX > 0) {
+                        updateImage(currentIndex - 1);
+                    } else {
+                        updateImage(currentIndex + 1);
+                    }
+                    isDragging = false;
+                }
+            });
+
+            img.addEventListener('mouseup', () => {
+                isDragging = false;
+            });
+
+            img.addEventListener('mouseleave', () => {
+                isDragging = false;
+            });
+        });
+
+        // data-color, data-size-аас өнгө, хэмжээ текст үүсгэх
+        products.forEach(product => {
+            const color = product.dataset.color;
+            const size = product.dataset.size;
+
+            if (color) {
+                const colorElem = document.createElement('p');
+                colorElem.className = 'color';
+                colorElem.textContent = `Өнгө: ${color}`;
+                product.appendChild(colorElem);
+            }
+
+            if (size) {
+                const sizeElem = document.createElement('p');
+                sizeElem.className = 'size';
+                sizeElem.textContent = `Хэмжээ: ${size}`;
+                product.appendChild(sizeElem);
+            }
         });
     </script>
 </body>
