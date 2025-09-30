@@ -308,17 +308,17 @@
     </header>
 
     <main class="content" tabindex="0" aria-label="Барааны carousel">
-        <div class="product">
+        <div class="product" data-images="assets/baraa1.png,assets/baraa1x1.png,assets/baraa1x2.png">
             <img src="assets/baraa1.png" alt="Baggy Jeans" loading="lazy" />
             <h3>Baggy Jeans</h3>
             <p class="price">120,000 ₮</p>
         </div>
-        <div class="product">
+        <div class="product" data-images="assets/baraa2.png,assets/baraa2x1.png,assets/baraa2x2.png">
             <img src="assets/baraa2.png" alt="Street Hoodie" loading="lazy" />
             <h3>Street Hoodie</h3>
             <p class="price">180,000 ₮</p>
         </div>
-        <div class="product">
+        <div class="product" data-images="assets/baraa3.png,assets/baraa3x1.png,assets/baraa3x2.png">
             <img src="assets/baraa3.png" alt="Casual Shirt" loading="lazy" />
             <h3>Casual Shirt</h3>
             <p class="price">95,000 ₮</p>
@@ -370,6 +370,29 @@
                 } else {
                     product.style.display = 'none';
                 }
+            });
+        });
+
+        // Зураг слайд эффект
+        products.forEach(product => {
+            const img = product.querySelector('img');
+            const images = product.dataset.images ? product.dataset.images.split(',') : [];
+            if (images.length <= 1) return; // Зөвхөн нэг зураг байвал слайд хийхгүй
+
+            let currentIndex = 0;
+            let intervalId;
+
+            product.addEventListener('mouseenter', () => {
+                currentIndex = 0;
+                intervalId = setInterval(() => {
+                    currentIndex = (currentIndex + 1) % images.length;
+                    img.src = images[currentIndex];
+                }, 1000); // 1 секунд тутам зураг солигдоно
+            });
+
+            product.addEventListener('mouseleave', () => {
+                clearInterval(intervalId);
+                img.src = images[0]; // Үндсэн зураг руу буцна
             });
         });
     </script>
